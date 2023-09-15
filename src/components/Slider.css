@@ -1,0 +1,10 @@
+.slider {
+  height: calc(100hv - 5rem);
+  width: auto;
+  background-color: #1e58219f;
+}
+.slide {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

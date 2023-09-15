@@ -26,4 +26,7 @@ body {
 
 .nav-link:hover::after {
   width: 100%;
+  background: #c42020;
 }
+
+/* slider */
