@@ -78,9 +78,30 @@ const Cart = () => {
           </div>
         ))}
       </div>
-      <div className="cart-lower-section grid grid-flow-col">
-        <div className="lower-lef">Left</div>
-        <div className="lower-right">Right</div>
+      <div className="cart-lower-section grid grid-cols-2 my-4 ">
+        <div className="lower-lef">
+          <button className="text-rose-700 border hover:text-gray-500 hover:border-rose-200 duration-300 rounded uppercase py-3 px-5 mt-10">
+            {" "}
+            Clear Cart
+          </button>
+        </div>
+        <div className="lower-right p-2">
+          <div className="flex justify-between mt-10">
+            <h1 className="bg-teal-500 py-2 px-4 font-semibold hover:bg-orange-500 hover:text-orange-50 duration-300 shadow-md rounded text-teal-50 uppercase">
+              Subtotals
+            </h1>
+            <h3 className="text-rose-500 text-xl font-semibold">$500</h3>
+          </div>
+          <div className="flex justify-center items-center flex-col mt-20">
+            <p>Lorem ipsum dolor sit amet consectetur.</p>
+            <button className="bg-teal-500 text-2xl w-full tracking-wider text-teal-50 uppercase text-center py-4 px-20 duration-300 rounded mt-3 shadow-lg hover:bg-orange-500 hover:text-orange-50 duration-300">
+              Checkout
+            </button>
+            <button className="text-teal-500 mt-2 capitalize">
+              Continue shopping
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

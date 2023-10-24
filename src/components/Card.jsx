@@ -7,18 +7,17 @@ const Card = ({ product }) => {
   const navigateToCart = useNavigate();
 
   const addToCartHandler = (id) => {
-    console.log(id);
     navigateToCart("/cart");
   };
   return (
     <div className="card-wrapper shadow-xl rounded-xl overflow-hidden p-3">
-      <div className="image-wrapper pt-2">
+      <div className="image-wrapper h-auto w-40 items-center justify-center flex pt-2">
         <img src={product.image} alt={product.title} srcset="" />
       </div>
       <p className="uppercase justify-center items-center py-2 flex text-orange-500 font-semibold ">
         {product.category}
       </p>
-      <h1 className="uppercase pb-2 text-blue-400 font-semibold text-xl">
+      <h1 className="uppercase pb-2 text-blue-400 truncate font-semibold text-xl">
         {product.title}
       </h1>
 
