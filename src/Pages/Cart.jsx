@@ -1,35 +1,15 @@
 // import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { removeFromCart } from "../features/cartSlice/cartSlice";
 
 const Cart = () => {
-  // const [fakeData, setFakedata] = useState([]);
-  // const first3 = fakeData.slice(0, 3);
-  // const [count, setCount] = useState(1);
-  // // console.log(first3);
+  const { cartItems: data, status } = useSelector((state) => state.cart);
 
-  // const handleIncrease = (e) => {
-  //   setCount((previous) => previous + 1);
-  // };
-
-  // const handleDecrease = (e) => {
-  //   setCount((previous) => previous - 1);
-  // };
-
-  // useEffect(() => {
-  //   try {
-  //     const fetchFakeData = async () => {
-  //       const response = await fetch("https://fakestoreapi.com/products");
-  //       const data = await response.json();
-  //       setFakedata(data);
-  //     };
-  //     fetchFakeData();
-  //   } catch (error) {
-  //     console.log(error.massage);
-  //   }
-  // }, []);
-
-  const { items, status } = useSelector((state) => state.products);
-
+  const dispatch = useDispatch();
+  const removeHandlerbtn = (product) => {
+    dispatch(removeFromCart(product));
+  };
   return (
     <div className="container mx-auto">
       <h1 className="container mx-auto my-5 py-5 text-center text-2xl uppercase text-gray-700 font-semibold">
@@ -43,7 +23,7 @@ const Cart = () => {
         <div>total price</div>
       </div>
       <div className="product-wrapper">
-        {items.map((product) => (
+        {data.map((product) => (
           <div className="product-container border-b-2" key={product.id}>
             <div className="image-wrapper grid grid-cols-4">
               <div className="image-wrapper flex">
@@ -52,8 +32,10 @@ const Cart = () => {
                   src={product.image}
                   alt={product.title}
                 />
-                <h5 className="truncate">{product.title}</h5>
-                <button className="font-semibold ml-6  text-gray-700 hover:text-rose-200">
+                <button
+                  onClick={() => removeHandlerbtn(product)}
+                  className="font-semibold ml-6  text-rose-200 hover:text-gray-700"
+                >
                   Remove
                 </button>
               </div>
@@ -95,9 +77,9 @@ const Cart = () => {
             <button className="bg-teal-500 text-2xl w-full tracking-wider text-teal-50 uppercase text-center py-4 px-20 duration-300 rounded mt-3 shadow-lg hover:bg-orange-500 hover:text-orange-50 duration-300">
               Checkout
             </button>
-            <button className="text-teal-500 mt-2 capitalize">
+            <Link to={"/products"} className="text-teal-500 mt-2 capitalize">
               Continue shopping
-            </button>
+            </Link>
           </div>
         </div>
       </div>
