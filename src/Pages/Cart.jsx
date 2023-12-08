@@ -1,14 +1,21 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
   clearCart,
   decreaseQuantity,
+  getSubtotal,
   increaseCartQuantity,
   removeFromCart,
 } from "../features/cartSlice/cartSlice";
 
 const Cart = () => {
-  const { cartItems: data, status } = useSelector((state) => state.cart);
+  const {
+    cartItems: data,
+    status,
+    totalAmount: subtotal,
+  } = useSelector((state) => state.cart);
+
   const dispatch = useDispatch();
 
   const removeHandler = (product) => {
@@ -22,6 +29,10 @@ const Cart = () => {
   const increaseHandler = (product) => {
     dispatch(increaseCartQuantity(product));
   };
+
+  useEffect(() => {
+    dispatch(getSubtotal());
+  }, [dispatch, data]);
 
   return (
     <div className="container mx-auto">
@@ -37,7 +48,7 @@ const Cart = () => {
           <div>total price</div>
         </div>
         <div className="product-wrapper">
-          {data?.map((product) => (
+          {data.map((product) => (
             <div className="product-container border-b-2" key={product.id}>
               <div className="image-wrapper grid grid-cols-4">
                 <div className="image-wrapper flex">
@@ -54,7 +65,7 @@ const Cart = () => {
                   </button>
                 </div>
                 <p className="flex items-center justify-start ml-5">
-                  {product.price}
+                  ${product.price}
                 </p>
                 <div className="btns   flex justify-center items-center ">
                   <button
@@ -74,8 +85,7 @@ const Cart = () => {
                   </button>
                 </div>
                 <p className="justify-center flex items-center">
-                  Total
-                  {" " + product.price}
+                  ${product.price * product.cartQuantity}
                 </p>
               </div>
             </div>
@@ -95,13 +105,15 @@ const Cart = () => {
               <h1 className="bg-teal-500 py-2 px-4 font-semibold hover:bg-orange-500 hover:text-orange-50 duration-300 shadow-md rounded text-teal-50 uppercase">
                 Subtotals
               </h1>
-              <h3 className="text-rose-500 text-xl font-semibold">$500</h3>
+              <h3 className="text-rose-500 text-xl font-semibold">
+                ${subtotal}
+              </h3>
             </div>
             <div className="flex justify-center items-center flex-col mt-20">
               <p>Lorem ipsum dolor sit amet consectetur.</p>
               <Link
                 to={"/checkout"}
-                className="bg-teal-500 text-2xl w-full tracking-wider text-teal-50 uppercase text-center py-4 px-20 duration-300 rounded mt-3 shadow-lg hover:bg-orange-500 hover:text-orange-50 duration-300"
+                className="bg-teal-500 text-2xl w-full tracking-wider text-teal-50 uppercase text-center py-4 px-20 duration-300 rounded mt-3 shadow-lg hover:bg-orange-500 hover:text-orange-50 "
               >
                 Checkout
               </Link>
